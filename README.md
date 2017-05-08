@@ -2,7 +2,7 @@
 
 Some visual demonstration of cryptography functions.
 
-Hashing
+[Hashing](https://anistark.github.io/cryptography/hash.html)
 
 
 ## Setup
