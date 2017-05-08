@@ -1,0 +1,21 @@
+{
+  "name": "cryptography",
+  "homepage": "https://github.com/anistark/cryptography",
+  "authors": [
+    "Kumar Anirudha <anirudhastark@yahoo.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "Apache",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "crypto-js": "^3.1.9"
+  }
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A live blockchain demo in a browser.">
+    <meta name="author" content="Anders Brownworth">
+    <title>Cryptography | Hash</title>
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/css/lib/bootstrap-horizon.css">
+    <link rel="stylesheet" href="assets/css/lib/ladda-themeless.min.css">
+    <link rel="stylesheet" href="assets/css/lib/ie10-viewport-bug-workaround.css">
+    <link rel="stylesheet" href="assets/css/crypt.css">
+    <script src="assets/scripts/lib/jquery.min.js"></script>
+    <script src="assets/scripts/lib/bootstrap.min.js"></script>
+    <script src="assets/scripts/lib/spin.min.js"></script>
+    <script src="assets/scripts/lib/ladda.min.js"></script>
+    <script src="assets/scripts/lib/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="bower_components/crypto-js/crypto-js.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">Cryptography</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="hash.html">Hashes</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+        <h1>Hashing</h1>
+        <div id="well1" class="well">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="data" class="col-sm-2 control-label">Data:</label>
+                    <div class="col-sm-10">
+                        <textarea id="data" rows="10" onkeyup="hashData()" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="algo" class="col-sm-2 control-label">Hash Algo:</label>
+                    <div class="col-sm-10">
+                        <select id="algo" class="col-sm-12">
+                            <option value="SHA256">SHA256</option>
+                            <option value="SHA1">SHA1</option>
+                            <option value="MD5">MD5</option>
+                            <option value="SHA224">SHA224</option>
+                            <option value="SHA512">SHA512</option>
+                            <option value="SHA384">SHA384</option>
+                            <option value="SHA3">SHA3</option>
+                            <option value="RIPEMD160">RIPEMD160</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="hash" class="col-sm-2 control-label">Hash:</label>
+                    <div class="col-sm-10">
+                        <input id="hash" type="text" disabled="" class="form-control">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function getText() {
+          return $('#data').val();
+        }
+        $('#hash').val(hashData('sha256'));
+        function hashData() {
+            try {
+                $('#hash').val(CryptoJS[$('#algo').val()](getText()));
+            } catch (e) {
+                console.log(e);
+                $('#hash').val('Error in algorithm. Report to me here https://github.com/anistark/cryptography/issues.');
+            }
+            return;
+        }
+    </script>
+  </body>
+</html>
