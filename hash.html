@@ -19,6 +19,7 @@
     <script src="assets/scripts/lib/ladda.min.js"></script>
     <script src="assets/scripts/lib/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript" src="assets/scripts/lib/crypto-js/crypto-js.js"></script>
+    <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,38 +36,91 @@
     </nav>
     <div class="container">
         <h1>Hashing</h1>
-        <div id="well1" class="well">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label for="data" class="col-sm-2 control-label">Data:</label>
-                    <div class="col-sm-10">
-                        <textarea id="data" rows="10" onkeyup="hashData()" class="form-control"></textarea>
+        <div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="hashing" class="active"><a href="#hashingEncrypt" aria-controls="home" role="tab" data-toggle="tab">Encrypt</a></li>
+                <li role="hashing"><a href="#hashingDecrypt" aria-controls="profile" role="tab" data-toggle="tab">Decrypt</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="hashingEncrypt">
+                    <div id="well1" class="well">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="data" class="col-sm-2 control-label">Data:</label>
+                                <div class="col-sm-10">
+                                    <textarea id="data" rows="10" onkeyup="hashData()" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="algo" class="col-sm-2 control-label">Hash:</label>
+                                <div class="col-sm-10">
+                                    <select id="algo" class="col-sm-12">
+                                        <option value="SHA256">SHA256</option>
+                                        <option value="SHA1">SHA1</option>
+                                        <option value="MD5">MD5</option>
+                                        <option value="SHA224">SHA224</option>
+                                        <option value="SHA512">SHA512</option>
+                                        <option value="SHA384">SHA384</option>
+                                        <option value="SHA3">SHA3</option>
+                                        <option value="RIPEMD160">RIPEMD160</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="hash" class="col-sm-2 control-label">Encrypted Hash:</label>
+                                <div class="col-sm-10">
+                                    <input id="hash" type="text" disabled="" class="form-control">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="algo" class="col-sm-2 control-label">Hash Algo:</label>
-                    <div class="col-sm-10">
-                        <select id="algo" class="col-sm-12">
-                            <option value="SHA256">SHA256</option>
-                            <option value="SHA1">SHA1</option>
-                            <option value="MD5">MD5</option>
-                            <option value="SHA224">SHA224</option>
-                            <option value="SHA512">SHA512</option>
-                            <option value="SHA384">SHA384</option>
-                            <option value="SHA3">SHA3</option>
-                            <option value="RIPEMD160">RIPEMD160</option>
-                        </select>
+                <div role="tabpanel" class="tab-pane" id="hashingDecrypt">
+                    <div id="well1" class="well">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="data" class="col-sm-2 control-label">Hash:</label>
+                                <div class="col-sm-10">
+                                    <input id="hash" type="text" onkeyup="decryptHash()" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="algo" class="col-sm-2 control-label">Hash Algo:</label>
+                                <div class="col-sm-10">
+                                    <select id="algo" class="col-sm-12">
+                                        <option value="SHA256">SHA256</option>
+                                        <option value="SHA1">SHA1</option>
+                                        <option value="MD5">MD5</option>
+                                        <option value="SHA224">SHA224</option>
+                                        <option value="SHA512">SHA512</option>
+                                        <option value="SHA384">SHA384</option>
+                                        <option value="SHA3">SHA3</option>
+                                        <option value="RIPEMD160">RIPEMD160</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="hash" class="col-sm-2 control-label">Decrypted Data:</label>
+                                <div class="col-sm-10">
+                                    <textarea id="data" rows="10" class="form-control"  disabled=""></textarea>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="hash" class="col-sm-2 control-label">Hash:</label>
-                    <div class="col-sm-10">
-                        <input id="hash" type="text" disabled="" class="form-control">
-                    </div>
-                </div>
-            </form>
+            </div>
+
         </div>
     </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Made with <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> <a href="http://anirudha.org">Kumar Anirudha</a></p>
+      </div>
+    </footer>
     <script>
         function getText() {
           return $('#data').val();
@@ -79,6 +133,16 @@
                 console.log(e);
                 $('#hash').val('Error in algorithm. Report to me here https://github.com/anistark/cryptography/issues.');
             }
+            return;
+        }
+        function decryptHash() {
+            // try {
+            //     $('#hash').val(CryptoJS[$('#algo').val()](getText()));
+            // } catch (e) {
+            //     console.log(e);
+            //     $('#hash').val('Error in algorithm. Report to me here https://github.com/anistark/cryptography/issues.');
+            // }
+            console.log('decrypt now');
             return;
         }
     </script>
