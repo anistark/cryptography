@@ -69,6 +69,9 @@
                                 <div class="col-sm-10">
                                     <select id="algo" class="col-sm-12">
                                         <option value="Base64">Base64</option>
+                                        <option value="Hex">Hex</option>
+                                        <option value="Utf8">Utf8</option>
+                                        <option value="Utf16">Utf16</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,6 +106,9 @@
                                 <div class="col-sm-10">
                                     <select id="algo" class="col-sm-12">
                                         <option value="Base64">Base64</option>
+                                        <option value="Hex">Hex</option>
+                                        <option value="Utf8">Utf8</option>
+                                        <option value="Utf16">Utf16</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,7 +138,7 @@
         $('#hash').val(hashData('sha256'));
         function hashData() {
             try {
-                // console.log('CryptoJS:', CryptoJS);
+                console.log('CryptoJS:', CryptoJS.enc);
                 var wordArray = CryptoJS.enc.Utf8.parse($('#data').val());
                 var encodedData = CryptoJS["enc"][$('#algo').val()].stringify(wordArray);
                 $('#hash').val(encodedData);
