@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cryptography conversion">
     <meta name="author" content="Kumar Anirudha (anistark)">
-    <title>Cryptography | Hash</title>
+    <title>Cryptography | Encode</title>
     <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/lib/bootstrap-theme.min.css">
     <link rel="stylesheet" href="assets/css/lib/bootstrap-horizon.css">
@@ -36,18 +36,18 @@
       </div>
     </nav>
     <div class="container">
-        <h1>Hashing</h1>
+        <h1>Encoding</h1>
         <div>
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="hashing" class="active"><a href="#hashingEncrypt" aria-controls="home" role="tab" data-toggle="tab">Encrypt</a></li>
-                <!-- <li role="hashing"><a href="#hashingDecrypt" aria-controls="profile" role="tab" data-toggle="tab">Decrypt</a></li> -->
+                <li role="encoding" class="active"><a href="#encoding" aria-controls="encoding" role="tab" data-toggle="tab">Encode</a></li>
+                <!-- <li role="encoding"><a href="#decoding" aria-controls="encoding" role="tab" data-toggle="tab">Decode</a></li> -->
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="hashingEncrypt">
+                <div role="tabpanel" class="tab-pane active" id="encoding">
                     <div id="well1" class="well">
                         <form class="form-horizontal">
                             <div class="form-group">
@@ -65,63 +65,49 @@
                                 <span id="extraDataByteSize" class="extraData"></span>
                             </div>
                             <div class="form-group">
-                                <label for="algo" class="col-sm-2 control-label">Hash:</label>
+                                <label for="algo" class="col-sm-2 control-label">Algorithm:</label>
                                 <div class="col-sm-10">
                                     <select id="algo" class="col-sm-12">
-                                        <option value="SHA256">SHA256</option>
-                                        <option value="SHA1">SHA1</option>
-                                        <option value="MD5">MD5</option>
-                                        <option value="SHA224">SHA224</option>
-                                        <option value="SHA512">SHA512</option>
-                                        <option value="SHA384">SHA384</option>
-                                        <option value="SHA3">SHA3</option>
-                                        <option value="RIPEMD160">RIPEMD160</option>
+                                        <option value="Base64">Base64</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="hash" class="col-sm-2 control-label">Encrypted Hash:</label>
+                                <label for="hash" class="col-sm-2 control-label">Encoded Data:</label>
                                 <div class="col-sm-10">
                                     <input id="hash" type="text" disabled="" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group" class="extraDataDiv">
-                                <label for="extraDataHashCharacters" class="col-sm-2 control-label">Hash Characters:</label>
+                                <label for="extraDataHashCharacters" class="col-sm-2 control-label">Encoded Characters:</label>
                                 <span id="extraDataHashCharacters" class="extraData"></span>
                             </div>
                             <div class="form-group" class="extraDataDiv">
-                                <label for="extraDataHashByteSize" class="col-sm-2 control-label">Hash Size(in byte):</label>
+                                <label for="extraDataHashByteSize" class="col-sm-2 control-label">Encoded Size(in byte):</label>
                                 <span id="extraDataHashByteSize" class="extraData"></span>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="hashingDecrypt">
+                <div role="tabpanel" class="tab-pane" id="decoding">
                     <div id="well1" class="well">
                         <form class="form-horizontal">
                             <div class="form-group">
-                                <label for="data" class="col-sm-2 control-label">Hash:</label>
+                                <label for="data" class="col-sm-2 control-label">Encoded String:</label>
                                 <div class="col-sm-10">
                                     <input id="hash" type="text" onkeyup="decryptHash()" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="algo" class="col-sm-2 control-label">Hash Algo:</label>
+                                <label for="algo" class="col-sm-2 control-label">Algo:</label>
                                 <div class="col-sm-10">
                                     <select id="algo" class="col-sm-12">
-                                        <option value="SHA256">SHA256</option>
-                                        <option value="SHA1">SHA1</option>
-                                        <option value="MD5">MD5</option>
-                                        <option value="SHA224">SHA224</option>
-                                        <option value="SHA512">SHA512</option>
-                                        <option value="SHA384">SHA384</option>
-                                        <option value="SHA3">SHA3</option>
-                                        <option value="RIPEMD160">RIPEMD160</option>
+                                        <option value="Base64">Base64</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="hash" class="col-sm-2 control-label">Decrypted Data:</label>
+                                <label for="hash" class="col-sm-2 control-label">Decoded Data:</label>
                                 <div class="col-sm-10">
                                     <textarea id="data" rows="10" class="form-control"  disabled=""></textarea>
                                 </div>
@@ -146,7 +132,10 @@
         $('#hash').val(hashData('sha256'));
         function hashData() {
             try {
-                $('#hash').val(CryptoJS[$('#algo').val()](getText()));
+                // console.log('CryptoJS:', CryptoJS);
+                var wordArray = CryptoJS.enc.Utf8.parse($('#data').val());
+                var encodedData = CryptoJS["enc"][$('#algo').val()].stringify(wordArray);
+                $('#hash').val(encodedData);
             } catch (e) {
                 console.log('encrypting err:', e);
                 $('#hash').val('Error in algorithm. Report to me here https://github.com/anistark/cryptography/issues.');
