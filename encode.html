@@ -138,7 +138,7 @@
         $('#hash').val(hashData('sha256'));
         function hashData() {
             try {
-                console.log('CryptoJS:', CryptoJS.enc);
+                // console.log('CryptoJS:', CryptoJS.enc);
                 var wordArray = CryptoJS.enc.Utf8.parse($('#data').val());
                 var encodedData = CryptoJS["enc"][$('#algo').val()].stringify(wordArray);
                 $('#hash').val(encodedData);
